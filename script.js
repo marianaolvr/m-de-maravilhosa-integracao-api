@@ -1,7 +1,7 @@
 const box = document.querySelector(".maravilhosas__box");
 
 
-fetch('https://theblackwomanhistory.firebaseio.com/.json')
+fetch('http://localhost:5001/maravilhosas/')
 
 .then((response) =>{
     return response.json();
@@ -30,14 +30,49 @@ fetch('https://theblackwomanhistory.firebaseio.com/.json')
         image.setAttribute('class', 'img-responsive');
         nome.appendChild(image);
 
-        if (mulher.metadata == undefined || mulher.metadata.image == ""){
-image.setAttribute('src', './img/img-mulher.png');
-        }else{
+        if(mulher.metadata && mulher.metadata.image){
             image.setAttribute('src', mulher.metadata.image.url);
-        }
+                        }
+                        else{
+                            image.setAttribute('src', './img/img-mulher.png');
+                        }
         
     })
 })
 .catch((erro) => {
     console.log(erro);
+})
+
+const button = document.getElementById('mulheres-maravilhosas-cadastro');
+
+button.addEventListener('click', (evento) => {
+    evento.preventDefault();
+
+    const nome = document.getElementsByName("nome").value;
+    const endereco = document.getElementsByName("imagem").value;
+
+    fetch('http://localhost:5001/maravilhosas/',{
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'nome': nome,
+            'endereco': endereco,
+        })
+
+    })
+    .then((response) => {
+        return response.json();
+    })
+    .then((data) => {
+        console.log(data);
+        document.getElementById("message").textContent = "Sucesso!! :)"
+    })
+    .catch((erro) => {
+        console.log(erro)
+    })
+
+
 })

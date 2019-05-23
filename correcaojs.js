@@ -23,7 +23,7 @@ fetch('https://theblackwomanhistory.firebaseio.com/.json')
             img.setAttribute('class', 'img-responsive'); 
             
             
-            if(mulher.metadata && mulher.metadata.imagem){
+            if(mulher.metadata && mulher.metadata.image){
                 img.setAttribute('src', mulher.metadata.imagem.url);
                             }
                             else{
