@@ -26,6 +26,10 @@ fetch('http://localhost:5001/maravilhosas/')
         nome.innerHTML = mulher.title;
         link.appendChild(nome);
 
+        let botao = document.createElement('button');
+        link.appendChild(botao);
+        botao.textContent = "Deletar"
+
         let image = document.createElement('img');
         image.setAttribute('class', 'img-responsive');
         nome.appendChild(image);
@@ -35,21 +39,23 @@ fetch('http://localhost:5001/maravilhosas/')
                         }
                         else{
                             image.setAttribute('src', './img/img-mulher.png');
-                        }
-        
+                        }     
     })
+    
+
 })
 .catch((erro) => {
     console.log(erro);
 })
 
-const button = document.getElementById('mulheres-maravilhosas-cadastro');
+const button = document.getElementById('button');
 
 button.addEventListener('click', (evento) => {
     evento.preventDefault();
 
-    const nome = document.getElementsByName("nome").value;
-    const endereco = document.getElementsByName("imagem").value;
+    const nome = document.getElementById('nome').value; //.value é porque está
+    const endereco = document.getElementById('endereco').value;
+    console.log(nome, endereco)
 
     fetch('http://localhost:5001/maravilhosas/',{
         method: 'POST',
@@ -58,8 +64,12 @@ button.addEventListener('click', (evento) => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            'nome': nome,
-            'endereco': endereco,
+            'title': nome,
+            'metadata':{'image':{'url': endereco
+            
+        }
+    }
+                
         })
 
     })
@@ -67,12 +77,18 @@ button.addEventListener('click', (evento) => {
         return response.json();
     })
     .then((data) => {
-        console.log(data);
-        document.getElementById("message").textContent = "Sucesso!! :)"
+        console.log('Sucesso');
     })
     .catch((erro) => {
         console.log(erro)
     })
 
+    window.location.reload(true)
 
-})
+    })
+
+
+    
+
+
+
