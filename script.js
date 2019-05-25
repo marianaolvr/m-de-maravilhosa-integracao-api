@@ -39,15 +39,15 @@ fetch('http://localhost:5001/maravilhosas/')
 
             botao.addEventListener('click', () => {
 
-                fetch(`http://localhost:5001/maravilhosas/${mulher.id}`, {
+                fetch(`http://localhost:5001/maravilhosas/${mulher.id}`, { //+mulher.id
                     method: 'DELETE',
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({
-                        'id': botao.getAttribute("data-id")
-                    })
+                    // body: JSON.stringify({
+                    //     'id': botao.getAttribute("data-id")
+                    // })
                 })
                     .then(data => {
                         console.log(data)
